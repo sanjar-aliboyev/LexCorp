@@ -1,13 +1,53 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
-import { Linkedin, Facebook, Instagram, Phone, Mail, MapPin } from 'lucide-react';
+import { Linkedin, Facebook, Instagram, Phone, Mail, MapPin, Send, Check } from 'lucide-react';
 import Logo from './Logo';
-import { useLanguage } from '../context/LanguageContext'; // 1. Import Hook
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Footer() {
-  const { t } = useLanguage(); // 2. Get Translations
+  const { t, lang } = useLanguage();
+  const currentLang = (lang || 'UZ') as 'UZ' | 'RU' | 'EN';
+
+  // --- SUBSCRIPTION LOGIC ---
+  const [email, setEmail] = useState('');
+  const [agreed, setAgreed] = useState(false);
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!agreed) {
+      alert(currentLang === 'EN' ? "Please agree to the privacy policy." : "Iltimos, shaxsiy ma'lumotlarni qayta ishlashga rozilik bildiring.");
+      return;
+    }
+    setStatus('loading');
+
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+
+      if (res.ok) {
+        setStatus('success');
+        setEmail('');
+      } else {
+        setStatus('error');
+      }
+    } catch (error) {
+      setStatus('error');
+    }
+  };
+
+  // Local translations for the form to avoid editing translation files
+  const subContent = {
+    title: { EN: "Subscribe to news", RU: "Подпишитесь на новости", UZ: "Yangiliklarga obuna" },
+    placeholder: { EN: "Your email", RU: "Ваш email", UZ: "Sizning email" },
+    btn: { EN: "SUBSCRIBE", RU: "ПОДПИСАТЬСЯ", UZ: "OBUNA BO'LISH" },
+    agree: { EN: "I agree to the processing of personal data.", RU: "Я согласен на обработку данных.", UZ: "Shaxsiy ma'lumotlarni qayta ishlashga roziman." }
+  };
 
   return (
     <footer style={{ backgroundColor: '#001328', color: '#fff', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
@@ -34,7 +74,7 @@ export default function Footer() {
 
           {/* Column 2: Links */}
           <div>
-            <h4 style={{ color: '#C5A059', marginBottom: '20px', fontFamily: 'var(--font-merriweather)' }}>{t.footer.company}</h4>
+            <h4 style={headingStyle}>{t.footer.company}</h4>
             <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <li><Link href="/" style={linkStyle}>{t.header.home}</Link></li>
               <li><Link href="/services" style={linkStyle}>{t.header.services}</Link></li>
@@ -47,13 +87,52 @@ export default function Footer() {
 
           {/* Column 3: Contact */}
           <div>
-            <h4 style={{ color: '#C5A059', marginBottom: '20px', fontFamily: 'var(--font-merriweather)' }}>{t.footer.contact}</h4>
+            <h4 style={headingStyle}>{t.footer.contact}</h4>
             <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '15px' }}>
               <li style={contactItemStyle}><Phone size={18} color="#C5A059"/> +998 90 123 45 67</li>
               <li style={contactItemStyle}><Mail size={18} color="#C5A059"/> info@prolex.uz</li>
               <li style={contactItemStyle}><MapPin size={18} color="#C5A059"/> Tashkent City, Nest One, 100000</li>
             </ul>
           </div>
+
+          {/* Column 4: Subscribe (NEW) */}
+          <div>
+            <h4 style={headingStyle}>{subContent.title[currentLang]}</h4>
+            
+            {status === 'success' ? (
+              <div style={{ color: '#48bb78', display: 'flex', alignItems: 'center', gap: '10px', marginTop: '10px' }}>
+                <Check size={20} />
+                <span>Success!</span>
+              </div>
+            ) : (
+              <form onSubmit={handleSubscribe} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                <div className="input-group">
+                  <input 
+                    type="email" 
+                    placeholder={subContent.placeholder[currentLang]} 
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="sub-input"
+                  />
+                  <button type="submit" disabled={status === 'loading'} className="sub-btn">
+                    {status === 'loading' ? '...' : <Send size={16} />}
+                  </button>
+                </div>
+                
+                <label style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', cursor: 'pointer', fontSize: '0.8rem', color: '#8892b0' }}>
+                  <input 
+                    type="checkbox" 
+                    checked={agreed} 
+                    onChange={(e) => setAgreed(e.target.checked)} 
+                    style={{ marginTop: '3px', accentColor: '#C5A059' }}
+                  />
+                  <span>{subContent.agree[currentLang]}</span>
+                </label>
+              </form>
+            )}
+          </div>
+
         </div>
 
         {/* Bottom Bar */}
@@ -67,9 +146,40 @@ export default function Footer() {
       </div>
 
       <style jsx>{`
-        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; }
         .social-icon { color: #8892b0; transition: color 0.2s; }
         .social-icon:hover { color: #C5A059; }
+
+        /* Subscribe Styles */
+        .input-group {
+          display: flex;
+          border: 1px solid rgba(255,255,255,0.1);
+          border-radius: 4px;
+          overflow: hidden;
+          background: rgba(255,255,255,0.03);
+        }
+        .sub-input {
+          flex-grow: 1;
+          background: transparent;
+          border: none;
+          padding: 12px 15px;
+          color: #fff;
+          font-size: 0.9rem;
+          outline: none;
+          width: 100%;
+        }
+        .sub-input::placeholder { color: #5c677d; }
+        .sub-btn {
+          background: #C5A059;
+          border: none;
+          color: #001328;
+          padding: 0 15px;
+          cursor: pointer;
+          display: flex; align-items: center; justify-content: center;
+          transition: background 0.2s;
+        }
+        .sub-btn:hover { background: #dcb363; }
+        .sub-btn:disabled { opacity: 0.7; cursor: not-allowed; }
       `}</style>
       
       <style jsx global>{`
@@ -81,5 +191,25 @@ export default function Footer() {
   );
 }
 
-const linkStyle = { color: '#cbd5e1', textDecoration: 'none', fontSize: '0.95rem', transition: 'color 0.2s' };
-const contactItemStyle = { display: 'flex', gap: '10px', alignItems: 'center', color: '#cbd5e1', fontSize: '0.95rem' };
+// Reusable styles to keep code clean
+const headingStyle = { 
+  color: '#C5A059', 
+  marginBottom: '20px', 
+  fontFamily: 'var(--font-merriweather)',
+  fontSize: '1.1rem'
+};
+
+const linkStyle = { 
+  color: '#cbd5e1', 
+  textDecoration: 'none', 
+  fontSize: '0.95rem', 
+  transition: 'color 0.2s' 
+};
+
+const contactItemStyle = { 
+  display: 'flex', 
+  gap: '10px', 
+  alignItems: 'center', 
+  color: '#cbd5e1', 
+  fontSize: '0.95rem' 
+};

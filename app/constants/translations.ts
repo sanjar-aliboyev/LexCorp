@@ -300,6 +300,12 @@ export const translations = {
       company: "Kompaniya",
       contact: "Aloqa",
       rights: "Barcha huquqlar himoyalangan."
+    },
+    messenger: {
+      title: "Biz messenjerlarda aloqadamiz",
+      subtitle: "Qulay aloqa usulini tanlang",
+      qrCaption: "Bizning ofisimiz xaritada",
+      phoneLabel: "Qo'ng'iroq qilishni afzal ko'rasizmi?"
     }
   },
 
@@ -604,6 +610,12 @@ export const translations = {
       company: "Компания",
       contact: "Контакты",
       rights: "Все права защищены."
+    },
+    messenger: {
+      title: "Мы на связи в мессенджерах",
+      subtitle: "Выберите удобный способ связи",
+      qrCaption: "Наш офис на карте",
+      phoneLabel: "Предпочитаете звонить?"
     }
   },
 
@@ -908,6 +920,12 @@ export const translations = {
       company: "Company",
       contact: "Contact",
       rights: "All rights reserved."
+    },
+    messenger: {
+      title: "We're available in messengers",
+      subtitle: "Choose a convenient way to contact",
+      qrCaption: "Our office on the map",
+      phoneLabel: "Prefer to call?"
     }
   }
 };

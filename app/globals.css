@@ -65,17 +65,27 @@ section {
 /* MOBILE RESPONSIVENESS FIXES */
 @media (max-width: 768px) {
   /* Prevent text hitting the edges on phones */
-  section > div { 
-    padding-left: 20px !important; 
-    padding-right: 20px !important; 
+  section > div {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
   }
-  
+
   /* Make headings smaller on mobile */
   h1 { font-size: 2.2rem !important; }
   h2 { font-size: 1.8rem !important; }
-  
+
   /* Stack grid items with spacing */
   .grid-container, .services-footer {
     gap: 30px !important;
   }
+}
+
+/* LOADING ANIMATIONS */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
 }

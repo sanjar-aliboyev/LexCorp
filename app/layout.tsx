@@ -4,8 +4,10 @@ import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { LanguageProvider } from "./context/LanguageContext";
+import { ThemeProvider } from "./context/ThemeContext";
 import ContactModal from "./components/ContactModal";
 import { ModalProvider } from "./components/ModalContext";
+import FloatingMessenger from "./components/FloatingMessenger";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,8 +17,21 @@ export const metadata: Metadata = {
     default: 'ProLex - Professional Legal Services in Uzbekistan',
   },
   description: 'Expert legal consultation for corporate, civil, and economic law.',
-  metadataBase: new URL('https://prolex.uz'), // Replace with your actual domain later
+  metadataBase: new URL('https://prolex.uz'),
 };
+
+// Script to prevent flash of wrong theme on page load
+const themeInitScript = `
+  (function() {
+    try {
+      var savedTheme = localStorage.getItem('theme');
+      var systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+      document.body.setAttribute('data-theme', theme);
+    } catch (e) {}
+  })();
+`;
 
 export default function RootLayout({
   children,
@@ -24,8 +39,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Theme initialization script - runs before page renders to prevent flash */}
+        <script
+          dangerouslySetInnerHTML={{ __html: themeInitScript }}
+        />
+        <meta name="theme-color" content="#ffffff" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -34,28 +54,31 @@ export default function RootLayout({
               "@type": "Organization",
               "name": "ProLex",
               "url": "https://prolex.uz",
-              "logo": "https://prolex.uz/Logo%20dark.png", // Assuming this is the path to your logo
+              "logo": "https://prolex.uz/Logo%20dark.png",
               "contactPoint": {
                 "@type": "ContactPoint",
-                "telephone": "+998 71 200 00 00", // Replace with actual phone number
+                "telephone": "+998 71 200 00 00",
                 "contactType": "customer service"
               },
               "sameAs": [
-                "https://www.facebook.com/prolex", // Replace with actual social media links
+                "https://www.facebook.com/prolex",
                 "https://www.linkedin.com/company/prolex"
               ]
             })
           }}
         />
       </head>
-      <body className={inter.className}>
-        <LanguageProvider>
-          <ModalProvider>
-            <Header />
-            {children}
-            <Footer />
-          </ModalProvider>
-        </LanguageProvider>
+      <body className={inter.className} suppressHydrationWarning>
+        <ThemeProvider>
+          <LanguageProvider>
+            <ModalProvider>
+              <Header />
+              {children}
+              <Footer />
+              <FloatingMessenger />
+            </ModalProvider>
+          </LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

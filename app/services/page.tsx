@@ -350,8 +350,6 @@ export default function ServicesPage() {
               </div>
             )}
       
-            <Footer />
-      
             <style jsx>{`
               /* --- LAYOUT UTILS --- */
               .container {

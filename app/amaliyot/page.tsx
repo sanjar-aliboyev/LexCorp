@@ -2,13 +2,13 @@
 
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
-import Footer from '../components/Footer';
 import { CheckCircle2, TrendingUp, AlertTriangle, ArrowRight, Loader2, CheckCircle, XCircle } from 'lucide-react';
 import { ComposableMap, Geographies, Geography, ZoomableGroup } from "react-simple-maps";
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../constants/translations';
 import { client } from '../sanity/client';
 import Link from 'next/link';
+import type { SuccessCase, ProcessedCase, ClientData, Language, CategoryMap } from '../types';
 
 // --- DATA: Clients (Static) ---
 const CLIENTS_DATA = [
@@ -34,7 +34,7 @@ const GEO_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json"
 const INDUSTRIES = ["All", "Oil & Gas", "Finance", "Construction", "IT & Electronics", "Energy"];
 
 // --- HELPER: Category Translations for Sanity Data ---
-const CATEGORY_MAP: any = {
+const CATEGORY_MAP: CategoryMap = {
   UZ: { 'corporate': 'Korporativ', 'litigation': 'Sud', 'tax': 'Soliq', 'ip': 'IP', 'labor': 'Mehnat', 'construction': 'Qurilish' },
   RU: { 'corporate': 'Корпоративное', 'litigation': 'Суды', 'tax': 'Налоги', 'ip': 'IP', 'labor': 'Трудовое', 'construction': 'Строительство' },
   EN: { 'corporate': 'Corporate', 'litigation': 'Litigation', 'tax': 'Tax', 'ip': 'IP', 'labor': 'Labor', 'construction': 'Construction' }
@@ -55,10 +55,11 @@ async function getCases() {
 
 export default function AmaliyotPage() {
   const { lang } = useLanguage();
+  const currentLang = lang as Language;
   const t = translations[lang].practicePage;
-  
+
   // Sanity Data State
-  const [cases, setCases] = useState<any[]>([]);
+  const [cases, setCases] = useState<SuccessCase[]>([]);
   
   // Filter States
   const [activeCountry, setActiveCountry] = useState('All');
@@ -78,8 +79,8 @@ export default function AmaliyotPage() {
   }, []);
 
   // Prepare Client Data with Translations
-  const clients = CLIENTS_DATA.map(client => {
-    const translation = t.clients.find((c: any) => c.id === client.id);
+  const clients: ClientData[] = CLIENTS_DATA.map(client => {
+    const translation = t.clients.find((c: { id: number; description: string }) => c.id === client.id);
     return {
       ...client,
       description: translation ? translation.description : ""
@@ -141,9 +142,9 @@ export default function AmaliyotPage() {
   };
 
   // Process Sanity Cases
-  const processedCases = cases.map((item) => {
-    const content = item.content[lang] || item.content['UZ'];
-    const displayCategory = CATEGORY_MAP[lang]?.[item.category] || item.category;
+  const processedCases: ProcessedCase[] = cases.map((item) => {
+    const content = item.content[currentLang] || item.content['UZ'];
+    const displayCategory = CATEGORY_MAP[currentLang]?.[item.category] || item.category;
 
     return {
       id: item.id,
@@ -372,8 +373,6 @@ export default function AmaliyotPage() {
           </form>
         </div>
       </section>
-
-      <Footer />
 
       <style jsx>{`
         /* --- GLOBAL CSS VARIABLES --- */

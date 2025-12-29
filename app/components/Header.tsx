@@ -2,12 +2,13 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { 
-  Menu, X, Clock, Mail, Sun, Moon, ChevronDown, 
-  Building2, Scale, ShieldCheck, Globe 
+import {
+  Menu, X, Clock, Mail, Sun, Moon, ChevronDown,
+  Building2, Scale, ShieldCheck, Globe
 } from 'lucide-react';
 import { useModal } from './ModalContext';
-import { useLanguage } from '../context/LanguageContext'; // Import Language Hook
+import { useLanguage } from '../context/LanguageContext';
+import { useTheme } from '../context/ThemeContext';
 import { SERVICES_DATA } from '../data/services';
 import Logo from './Logo';
 import SocialLinks from '../../components/SocialLinks';
@@ -15,26 +16,22 @@ import SocialLinks from '../../components/SocialLinks';
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [theme, setTheme] = useState('light');
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
-  
-  // 1. Get Language State from Context
+
+  // Get Language State from Context
   const { lang, setLang, t } = useLanguage();
-  
+
+  // Get Theme State from Context (persists across pages)
+  const { theme, toggleTheme } = useTheme();
+
   const modalContext = useModal();
   const openModal = modalContext ? modalContext.openModal : () => console.log("Modal not connected");
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
-    document.body.setAttribute('data-theme', theme);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [theme]);
-
-  const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme);
-  };
+  }, []);
   
   const currentLang = (lang || 'UZ') as 'UZ' | 'RU' | 'EN';
   const megaMenuColumns = [
@@ -83,8 +80,12 @@ export default function Header() {
             
             <div style={{ width: '1px', height: '12px', backgroundColor: 'rgba(255,255,255,0.2)' }}></div>
             
-            <button onClick={toggleTheme} style={{ background: 'none', border: 'none', color: 'white', display: 'flex', alignItems: 'center', gap: '5px', cursor: 'pointer', fontSize: '0.8rem' }}>
-               {theme === 'light' ? <Moon size={14}/> : <Sun size={14}/>} 
+            <button
+              onClick={toggleTheme}
+              aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
+              style={{ background: 'none', border: 'none', color: 'white', display: 'flex', alignItems: 'center', gap: '5px', cursor: 'pointer', fontSize: '0.8rem' }}
+            >
+               {theme === 'light' ? <Moon size={14}/> : <Sun size={14}/>}
                <span className="hide-on-mobile">Rejim</span>
             </button>
           </div>
@@ -114,7 +115,13 @@ export default function Header() {
           </button>
         </nav>
 
-        <button className="mobile-toggle" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+        <button
+          className="mobile-toggle"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={mobileMenuOpen}
+          aria-controls="mobile-menu"
+        >
           {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
       </div>
@@ -145,7 +152,7 @@ export default function Header() {
       </div>
 
       {/* MOBILE MENU - Uses Translations */}
-      <div className={`mobile-menu ${mobileMenuOpen ? 'open' : ''}`}>
+      <nav id="mobile-menu" className={`mobile-menu ${mobileMenuOpen ? 'open' : ''}`} aria-hidden={!mobileMenuOpen}>
         <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <Link href="/" onClick={() => setMobileMenuOpen(false)}>{t.header.home}</Link>
           <div style={{ borderTop: '1px solid #eee', paddingTop: '10px' }}>
@@ -165,7 +172,7 @@ export default function Header() {
             {t.header.cta}
           </button>
         </div>
-      </div>
+      </nav>
 
       <style jsx global>{`
         .nav-link { font-size: 0.95rem; font-weight: 500; color: var(--text-main); transition: color 0.2s; }

@@ -7,6 +7,7 @@ import { Search, Calendar, ArrowRight, Send, PlayCircle } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { client } from '../sanity/client';
 import Link from 'next/link';
+import Image from 'next/image';
 
 // --- 1. HELPER: Extract YouTube ID ---
 function getEmbedUrl(url: string) {
@@ -209,7 +210,15 @@ export default function BlogPage() {
             {filteredPosts.map((post) => (
               <div key={post.id} className="article-card">
                 <div className="card-image-container">
-                  {post.image && <img src={post.image} alt={post.title} className="card-img" />}
+                  {post.image && (
+                    <Image
+                      src={post.image}
+                      alt={post.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      style={{ objectFit: 'cover' }}
+                    />
+                  )}
                   <span className="category-badge">{post.category}</span>
                 </div>
                 <div className="card-content">
@@ -306,8 +315,6 @@ export default function BlogPage() {
         </div>
       </section>
 
-      <Footer />
-
       <style jsx>{`
         .category-scroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 5px; scrollbar-width: none; }
         .category-scroll::-webkit-scrollbar { display: none; }
@@ -317,8 +324,7 @@ export default function BlogPage() {
         .blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
         .article-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.3s; }
         .article-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
-        .card-image-container { height: 220px; position: relative; }
-        .card-img { width: 100%; height: 100%; object-fit: cover; }
+        .card-image-container { height: 220px; position: relative; overflow: hidden; }
         .category-badge { position: absolute; top: 15px; left: 15px; background: #C5A059; color: #001F3F; padding: 6px 12px; font-size: 0.75rem; font-weight: 700; border-radius: 4px; }
         .card-content { padding: 24px; flex-grow: 1; display: flex; flex-direction: column; }
         .meta { color: var(--text-secondary); font-size: 0.85rem; display: flex; align-items: center; gap: 5px; margin-bottom: 12px; }

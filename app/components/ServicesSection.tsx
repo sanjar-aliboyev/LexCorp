@@ -1,18 +1,64 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ArrowRight, Building2, FileText, Scale, Home, ShieldAlert, Gavel } from 'lucide-react';
+import { 
+  ArrowRight, Building2, FileText, Scale, Home, ShieldAlert, Gavel, 
+  ClipboardList, Download, X, CheckCircle 
+} from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import Link from 'next/link';
 import { SERVICES_DATA } from '../data/services';
 
-
 export default function ServicesSection() {
   const { t, lang } = useLanguage();
   const [activeIndex, setActiveIndex] = useState(0); 
+  
+  // --- MODAL STATE ---
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    serviceType: ''
+  });
 
   // Fallback language if context is undefined
   const currentLang = (lang || 'UZ') as 'UZ' | 'RU' | 'EN';
+
+  // --- FORM HANDLER ---
+  const handleOrderSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setFormStatus('submitting');
+
+    try {
+      const res = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          phone: formData.phone,
+          serviceType: formData.serviceType,
+          source: 'Services Section Homepage Modal', // A helpful label
+          subject: `Service Order Request from ${formData.name}`,
+        }),
+      });
+
+      if (res.ok) {
+        setFormStatus('success');
+        setFormData({ name: '', phone: '', serviceType: '' }); // Clear form
+        setTimeout(() => {
+          setFormStatus('idle');
+          setIsModalOpen(false);
+        }, 2500);
+      } else {
+        console.error('Failed to send service order:', res.statusText);
+        setFormStatus('error');
+      }
+    } catch (error) {
+      console.error('Error sending service order:', error);
+      setFormStatus('error');
+    }
+  };
 
   return (
     <section className="services-container">
@@ -31,15 +77,40 @@ export default function ServicesSection() {
 
       {/* 3. CONTENT GRID */}
       <div className="content-wrapper">
-        <div className="section-header">
-          <h2 className="section-title">{t.servicesPage?.title || "Our Expertise"}</h2>
-          <div className="header-line"></div>
+        
+        {/* --- HEADER ROW WITH BUTTONS --- */}
+        <div className="section-header-row">
+          <div className="header-left">
+            <h2 className="section-title">{t.servicesPage?.title || "Our Expertise"}</h2>
+            <div className="header-line"></div>
+          </div>
+
+          <div className="header-actions">
+            {/* BUTTON 1: ORDER SERVICE */}
+            <button onClick={() => setIsModalOpen(true)} className="action-btn primary">
+              <ClipboardList size={18} />
+              <span>
+                {currentLang === 'EN' ? 'Order Service' : 
+                 currentLang === 'RU' ? 'Заказать услугу' : 
+                 'Xizmat buyurtma qilish'}
+              </span>
+            </button>
+
+            {/* BUTTON 2: DOWNLOAD PPT */}
+            <a href="/presentation.pdf" download className="action-btn outline">
+              <Download size={18} />
+              <span>
+                {currentLang === 'EN' ? 'Download PPT' : 
+                 currentLang === 'RU' ? 'Скачать презентацию' : 
+                 'Prezentatsiyani yuklash'}
+              </span>
+            </a>
+          </div>
         </div>
 
         <div className="services-grid">
           {SERVICES_DATA.map((service, index) => {
             const Icon = service.icon;
-            // DIRECT DATA ACCESS - No external translation map
             const title = service.titles[currentLang] || service.titles['EN'];
             const subList = service.subServices[currentLang] || service.subServices['EN'];
 
@@ -74,6 +145,75 @@ export default function ServicesSection() {
         </div>
       </div>
 
+      {/* --- POPUP MODAL --- */}
+      {isModalOpen && (
+        <div className="modal-backdrop" onClick={() => setIsModalOpen(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="close-btn" onClick={() => setIsModalOpen(false)}>
+              <X size={24} />
+            </button>
+
+            {formStatus === 'success' ? (
+              <div className="success-view">
+                <CheckCircle size={60} color="#16a34a" />
+                <h3>Successfully Sent!</h3>
+                <p>We will contact you shortly.</p>
+              </div>
+            ) : (
+              <form onSubmit={handleOrderSubmit}>
+                <h3 className="modal-title">
+                  {currentLang === 'EN' ? 'Order Legal Service' : 
+                   currentLang === 'RU' ? 'Заказать юридическую услугу' : 
+                   'Yuridik xizmatga buyurtma'}
+                </h3>
+                
+                <div className="form-group">
+                  <label>Name</label>
+                  <input 
+                    type="text" 
+                    required 
+                    placeholder="John Doe" 
+                    value={formData.name} 
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })} 
+                  />
+                </div>
+                
+                <div className="form-group">
+                  <label>Phone</label>
+                  <input 
+                    type="tel" 
+                    required 
+                    placeholder="+998 90 123 45 67" 
+                    value={formData.phone} 
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })} 
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label>Service Type</label>
+                  <select 
+                    required 
+                    value={formData.serviceType} 
+                    onChange={(e) => setFormData({ ...formData, serviceType: e.target.value })}
+                  >
+                    <option value="" disabled>Select a service...</option>
+                    {SERVICES_DATA.map(s => (
+                      <option key={s.id} value={s.titles['EN']}> {/* Use EN title as value */}
+                        {s.titles[currentLang] || s.titles['EN']}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <button type="submit" className="submit-btn" disabled={formStatus === 'submitting'}>
+                  {formStatus === 'submitting' ? 'Sending...' : 'Send Request'}
+                </button>
+              </form>
+            )}
+          </div>
+        </div>
+      )}
+
       <style jsx>{`
         .services-container {
           position: relative;
@@ -81,6 +221,109 @@ export default function ServicesSection() {
           overflow: hidden;
           background-color: #001F3F;
         }
+
+        /* --- HEADER LAYOUT --- */
+        .section-header-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-end;
+          margin-bottom: 50px;
+          flex-wrap: wrap;
+          gap: 30px;
+        }
+        .header-left { flex-grow: 1; }
+        .section-title {
+          font-family: var(--font-merriweather);
+          font-size: 3rem; color: #fff; margin-bottom: 15px;
+        }
+        .header-line { width: 80px; height: 4px; background: #C5A059; }
+
+        /* --- BUTTONS --- */
+        .header-actions {
+          display: flex;
+          gap: 15px;
+        }
+        .action-btn {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          padding: 12px 24px;
+          border-radius: 4px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          text-decoration: none;
+          font-size: 0.95rem;
+        }
+        .action-btn.primary {
+          background-color: #C5A059;
+          color: #001F3F;
+          border: 1px solid #C5A059;
+        }
+        .action-btn.primary:hover {
+          background-color: #fff;
+          border-color: #fff;
+        }
+        .action-btn.outline {
+          background-color: transparent;
+          color: #fff;
+          border: 1px solid rgba(255,255,255,0.3);
+        }
+        .action-btn.outline:hover {
+          border-color: #C5A059;
+          color: #C5A059;
+        }
+
+        /* --- MODAL STYLES --- */
+        .modal-backdrop {
+          position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+          background: rgba(0,0,0,0.7);
+          backdrop-filter: blur(5px);
+          z-index: 1000;
+          display: flex; align-items: center; justify-content: center;
+          padding: 20px;
+        }
+        .modal-content {
+          background: var(--bg-card);
+          padding: 40px;
+          border-radius: 8px;
+          width: 100%;
+          max-width: 500px;
+          position: relative;
+          border: 1px solid var(--border-color);
+          box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+        .close-btn {
+          position: absolute; top: 15px; right: 15px;
+          background: transparent; border: none; color: var(--text-secondary);
+          cursor: pointer;
+        }
+        .modal-title {
+          font-family: var(--font-merriweather);
+          font-size: 1.5rem; color: var(--text-main); margin-bottom: 25px;
+          text-align: center;
+        }
+        .form-group { margin-bottom: 20px; }
+        .form-group label {
+          display: block; margin-bottom: 8px; color: var(--text-secondary); font-size: 0.9rem;
+        }
+        .form-group input, .form-group select {
+          width: 100%; padding: 12px; border-radius: 6px;
+          border: 1px solid var(--border-color);
+          background: var(--bg-surface);
+          color: var(--text-main);
+          outline: none;
+        }
+        .form-group input:focus { border-color: #C5A059; }
+        .submit-btn {
+          width: 100%; padding: 14px; background: #001F3F; color: #fff;
+          border: none; border-radius: 6px; font-weight: 600; cursor: pointer;
+          transition: background 0.2s;
+        }
+        .submit-btn:hover { background: #C5A059; color: #001F3F; }
+        
+        .success-view { text-align: center; padding: 20px 0; }
+        .success-view h3 { margin-top: 15px; color: var(--text-main); }
 
         /* --- BACKGROUND TRANSITIONS --- */
         .bg-layer {
@@ -106,13 +349,6 @@ export default function ServicesSection() {
           height: 100%;
           display: flex; flex-direction: column; justify-content: center;
         }
-
-        .section-header { margin-bottom: 50px; }
-        .section-title {
-          font-family: var(--font-merriweather);
-          font-size: 3rem; color: #fff; margin-bottom: 20px;
-        }
-        .header-line { width: 80px; height: 4px; background: #C5A059; }
 
         /* --- GRID --- */
         .services-grid {
@@ -198,6 +434,11 @@ export default function ServicesSection() {
           .section-title { font-size: 2rem; }
           .services-grid { border-right: 1px solid rgba(255,255,255,0.15); }
           .service-card.active-card .card-reveal { max-height: 500px; }
+          
+          /* Updated Header Actions for Mobile */
+          .section-header-row { flex-direction: column; align-items: flex-start; }
+          .header-actions { width: 100%; flex-direction: column; }
+          .action-btn { justify-content: center; }
         }
       `}</style>
     </section>
