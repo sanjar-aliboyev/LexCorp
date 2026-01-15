@@ -12,12 +12,53 @@ import FloatingMessenger from "./components/FloatingMessenger";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: {
-    template: '%s | LexCorp',
-    default: 'LexCorp - Professional Legal Services in Uzbekistan',
-  },
-  description: 'Expert legal consultation for corporate, civil, and economic law.',
   metadataBase: new URL('https://lexcorp.uz'),
+  title: {
+    default: "LexCorp - Protecting Global Retail Giants",
+    template: "%s | LexCorp",
+  },
+  description: "LexCorp specializes in Intellectual Property protection, brand security, and market analysis for global retail giants in Central Asia.",
+  keywords: ["Intellectual Property", "Brand Protection", "Uzbekistan Law", "Retail Security", "LexCorp", "Legal Services", "Central Asia"],
+  openGraph: {
+    title: "LexCorp - Protecting Global Retail Giants",
+    description: "Trusted by global brands to secure their intellectual property and market presence in Central Asia.",
+    url: "https://lexcorp.uz",
+    siteName: "LexCorp",
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "LexCorp - Brand Protection & Intellectual Property",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "LexCorp - Protecting Global Retail Giants",
+    description: "Trusted by global brands to secure their intellectual property and market presence.",
+    images: ["/og-image.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    google: 'YOUR_GOOGLE_VERIFICATION_CODE', // Get from Google Search Console
+    yandex: 'YOUR_YANDEX_VERIFICATION_CODE', // Get from webmaster.yandex.com
+    other: {
+      'baidu-site-verification': 'YOUR_BAIDU_CODE', // Get from ziyuan.baidu.com
+    },
+  },
 };
 
 // Script to prevent flash of wrong theme on page load

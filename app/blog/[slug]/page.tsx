@@ -21,17 +21,42 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
   const params = await props.params; // Await params for Next.js 15+
   const post = await getPost(params.slug);
 
-  if (!post) return {};
+  if (!post) {
+    return {
+      title: "Post Not Found",
+    };
+  }
 
-  // Default to UZ for SEO tags, fallback to others
-  const primaryContent = post.content?.UZ || post.content?.EN || post.content?.RU;
+  // Default to EN for SEO tags (better for international reach), fallback to others
+  const primaryContent = post.content?.EN || post.content?.UZ || post.content?.RU;
+  const title = primaryContent?.title || 'LexCorp Blog';
+  const description = primaryContent?.excerpt || 'Legal insights and intellectual property news from LexCorp.';
+  const imageUrl = post.image || '/og-image.jpg';
 
   return {
-    title: primaryContent?.title || 'LexCorp Blog',
-    description: primaryContent?.excerpt || 'Legal insights from LexCorp.',
+    title,
+    description,
     openGraph: {
-        images: post.image ? [post.image] : [],
-    }
+      title,
+      description,
+      type: 'article',
+      publishedTime: post.date,
+      authors: post.author?.name ? [post.author.name] : ['LexCorp'],
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [imageUrl],
+    },
   };
 }
 
