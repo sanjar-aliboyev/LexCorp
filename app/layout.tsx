@@ -53,11 +53,8 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: 'YOUR_GOOGLE_VERIFICATION_CODE', // Get from Google Search Console
-    yandex: 'YOUR_YANDEX_VERIFICATION_CODE', // Get from webmaster.yandex.com
-    other: {
-      'baidu-site-verification': 'YOUR_BAIDU_CODE', // Get from ziyuan.baidu.com
-    },
+    google: 'e450D2HMBmWwVHwPgX_3xqLtp-SV8ew2-tHN2UJenKs',
+    yandex: 'fd5d87aade1af7fc',
   },
 };
 
