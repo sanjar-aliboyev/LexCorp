@@ -95,7 +95,8 @@ export default function RootLayout({
               "logo": "https://lexcorp.uz/Logo%20dark.png",
               "contactPoint": {
                 "@type": "ContactPoint",
-                "telephone": "+998 71 200 00 00",
+                "telephone": "+998 94 331 88 11",
+                "email": "sanjar@aliboyev.com",
                 "contactType": "customer service"
               },
               "sameAs": [

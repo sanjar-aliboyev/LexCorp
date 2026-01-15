@@ -89,9 +89,9 @@ export default function Footer() {
           <div>
             <h4 style={headingStyle}>{t.footer.contact}</h4>
             <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '15px' }}>
-              <li style={contactItemStyle}><Phone size={18} color="#C5A059"/> +998 90 123 45 67</li>
-              <li style={contactItemStyle}><Mail size={18} color="#C5A059"/> info@lexcorp.uz</li>
-              <li style={contactItemStyle}><MapPin size={18} color="#C5A059"/> Tashkent City, Nest One, 100000</li>
+              <li style={contactItemStyle}><Phone size={18} color="#C5A059"/> +998 94 331 88 11</li>
+              <li style={contactItemStyle}><Mail size={18} color="#C5A059"/> sanjar@aliboyev.com</li>
+              <li style={contactItemStyle}><MapPin size={18} color="#C5A059"/> 203 Office, 107-house, Mustakillik street, Mirzo Ulugbek district, Tashkent, 100170</li>
             </ul>
           </div>
 
