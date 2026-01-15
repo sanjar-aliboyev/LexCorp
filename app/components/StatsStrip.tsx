@@ -86,7 +86,7 @@ export default function StatsStrip() {
 
       <style jsx>{`
         .stats-strip {
-          background-color: #001F3F; /* ProLex Navy */
+          background-color: #001F3F; /* LexCorp Navy */
           padding: 60px 0;
           border-top: 1px solid rgba(255,255,255,0.1);
         }

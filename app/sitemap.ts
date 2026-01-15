@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { getAllPostSlugs } from './lib/sanity'; // Adjust path as needed
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://prolex.uz'; // Replace with your actual domain
+  const baseUrl = 'https://lexcorp.uz'; // Replace with your actual domain
 
   // Static pages
   const staticPages: MetadataRoute.Sitemap = [

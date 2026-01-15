@@ -1,8 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
 import { Linkedin, Mail, Award, GraduationCap, Facebook, ChevronDown } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { TEAM_DATA } from '../data/team';
@@ -18,7 +16,6 @@ export default function TeamPage() {
 
   return (
     <main style={{ backgroundColor: 'var(--bg-body)', minHeight: '100vh', transition: 'background-color 0.3s' }}>
-      <Header />
 
       {/* HERO SECTION */}
       <section className="team-hero">

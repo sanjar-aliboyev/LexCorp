@@ -90,7 +90,7 @@ export default function Footer() {
             <h4 style={headingStyle}>{t.footer.contact}</h4>
             <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '15px' }}>
               <li style={contactItemStyle}><Phone size={18} color="#C5A059"/> +998 90 123 45 67</li>
-              <li style={contactItemStyle}><Mail size={18} color="#C5A059"/> info@prolex.uz</li>
+              <li style={contactItemStyle}><Mail size={18} color="#C5A059"/> info@lexcorp.uz</li>
               <li style={contactItemStyle}><MapPin size={18} color="#C5A059"/> Tashkent City, Nest One, 100000</li>
             </ul>
           </div>
@@ -137,7 +137,7 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div style={{ marginTop: '60px', paddingTop: '30px', borderTop: '1px solid rgba(255,255,255,0.1)', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '20px', fontSize: '0.85rem', color: '#8892b0' }}>
-          <div>© {new Date().getFullYear()} ProLex Law Firm. {t.footer.rights}</div>
+          <div>© {new Date().getFullYear()} LexCorp Law Firm. {t.footer.rights}</div>
           <div style={{ display: 'flex', gap: '20px' }}>
             <Link href="#" style={{ color: '#8892b0', textDecoration: 'none' }}>Privacy Policy</Link>
             <Link href="#" style={{ color: '#8892b0', textDecoration: 'none' }}>Terms of Service</Link>
@@ -183,9 +183,9 @@ export default function Footer() {
       `}</style>
       
       <style jsx global>{`
-        .footer-logo-container .prolex-logo { color: #C5A059 !important; }
-        .footer-logo-container .text-pro { color: #FFFFFF !important; }
+        .footer-logo-container .lexcorp-logo { color: #C5A059 !important; }
         .footer-logo-container .text-lex { color: #C5A059 !important; }
+        .footer-logo-container .text-corp { color: #FFFFFF !important; }
       `}</style>
     </footer>
   );

@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Header from '../components/Header';
 import { CheckCircle2, TrendingUp, AlertTriangle, ArrowRight, Loader2, CheckCircle, XCircle } from 'lucide-react';
 import { ComposableMap, Geographies, Geography, ZoomableGroup } from "react-simple-maps";
 import { useLanguage } from '../context/LanguageContext';
@@ -159,7 +158,6 @@ export default function AmaliyotPage() {
 
   return (
     <main style={{ backgroundColor: 'var(--bg-body)', minHeight: '100vh', transition: 'background-color 0.3s' }}>
-      <Header />
 
       {/* --- BLOCK 1: GLOBAL EXPERIENCE --- */}
       <section style={{ 

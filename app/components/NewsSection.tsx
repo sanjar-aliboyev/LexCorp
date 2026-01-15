@@ -43,7 +43,7 @@ export default function NewsSection() {
   }, []);
 
   // 2. Define Section Titles based on your request
-  const sectionTitle = lang === 'UZ' ? 'ProLex Tahlili' : 'ProLex Notes';
+  const sectionTitle = lang === 'UZ' ? 'LexCorp Tahlili' : 'LexCorp Notes';
   const viewAllText = lang === 'UZ' ? 'Barchasini ko\'rish' : (lang === 'RU' ? 'Смотреть все' : 'View All');
 
   return (
@@ -79,7 +79,7 @@ export default function NewsSection() {
                     {post.image ? (
                       <img src={post.image} alt={content?.title} />
                     ) : (
-                      <div className="placeholder-img">ProLex</div>
+                      <div className="placeholder-img">LexCorp</div>
                     )}
                   </div>
                   <div className="content">

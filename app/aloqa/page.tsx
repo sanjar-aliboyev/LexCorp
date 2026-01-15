@@ -1,10 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
 import { MapPin, Mail, Send, CheckCircle } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { SERVICES_DATA } from '../data/services';
 
 export default function ContactPage() {
   const { t, lang } = useLanguage(); 
@@ -69,7 +68,6 @@ export default function ContactPage() {
 
   return (
     <main style={{ backgroundColor: 'var(--bg-body)', minHeight: '100vh', transition: 'background-color 0.3s' }}>
-      <Header />
 
       {/* HERO SECTION */}
       <section className="contact-hero">
@@ -202,9 +200,17 @@ export default function ContactPage() {
                         onChange={handleChange}
                       >
                         <option value="">...</option>
-                        <option value={t.servicesPage.corporate}>{t.servicesPage.corporate}</option>
-                        <option value={t.servicesPage.dispute}>{t.servicesPage.dispute}</option>
-                        <option value={t.servicesPage.tax}>{t.servicesPage.tax}</option>
+                        {SERVICES_DATA.map((service) => {
+                          const currentLang = (lang || 'UZ') as 'UZ' | 'RU' | 'EN';
+                          return (
+                            <option key={service.id} value={service.titles['EN']}>
+                              {service.titles[currentLang] || service.titles['EN']}
+                            </option>
+                          );
+                        })}
+                        <option value="Other">
+                          {lang === 'RU' ? 'Другое' : lang === 'EN' ? 'Other' : 'Boshqa'}
+                        </option>
                       </select>
                     </div>
 
@@ -233,8 +239,6 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <Footer />
-      
       <style jsx>{`
         /* VARIABLES */
         :global(:root) { --map-invert: 0%; }

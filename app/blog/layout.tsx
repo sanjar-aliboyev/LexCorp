@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description: 'Huquqiy yangiliklar, maqolalar va tahlillar. O\'zbekiston qonunchiligidagi o\'zgarishlar haqida bilib oling.',
   keywords: ['huquqiy blog', 'qonunchilik', 'yangiliklar', 'maqolalar', 'O\'zbekiston huquqi'],
   openGraph: {
-    title: 'Blog | ProLex',
+    title: 'Blog | LexCorp',
     description: 'Huquqiy yangiliklar va professional maqolalar.',
     type: 'website',
   },

@@ -140,7 +140,7 @@ export default function PracticeSlider() {
           position: relative;
         }
 
-        /* The Navy Veil: Critical for "ProLex" readability */
+        /* The Navy Veil: Critical for "LexCorp" readability */
         .overlay {
           position: absolute;
           inset: 0;

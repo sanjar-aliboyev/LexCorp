@@ -17,7 +17,7 @@ export async function POST(req: Request) {
 
     // 2. Format the Email Body
     const mailOptions = {
-      from: `"ProLex Website" <${process.env.GMAIL_USER}>`, // Sender
+      from: `"LexCorp Website" <${process.env.GMAIL_USER}>`, // Sender
       to: 'sanjar@aliboyev.com', // Receiver (You)
       subject: `🔔 New Lead: ${name} (${source})`,
       html: `

@@ -37,13 +37,13 @@ export async function POST(req: Request) {
     await transporter.sendMail({
       from: process.env.GMAIL_USER,
       to: email,
-      subject: 'Welcome to ProLex Updates',
+      subject: 'Welcome to LexCorp Updates',
       html: `
         <div style="font-family: sans-serif; padding: 20px; color: #001F3F;">
           <h2>Thank you for subscribing!</h2>
           <p>You will now receive updates about our articles, news, and success cases.</p>
           <br>
-          <p>Best regards,<br><strong>ProLex Team</strong></p>
+          <p>Best regards,<br><strong>LexCorp Team</strong></p>
         </div>
       `,
     });

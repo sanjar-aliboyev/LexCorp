@@ -4,7 +4,7 @@ import React from 'react';
 
 export default function Logo({ className = "" }: { className?: string }) {
   return (
-    <div className={`prolex-logo ${className}`} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+    <div className={`lexcorp-logo ${className}`} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
       
       {/* This SVG is drawn exactly based on your "Logo light.jpg" image:
         - Ionic Column Capital (Scrolls on sides)
@@ -52,28 +52,28 @@ export default function Logo({ className = "" }: { className?: string }) {
         </g>
       </svg>
 
-      {/* Text: ProLex */}
+      {/* Text: LexCorp */}
       <span style={{ fontSize: '1.8rem', fontWeight: 900, letterSpacing: '-1px', fontFamily: 'var(--font-merriweather)', lineHeight: 1 }}>
-        <span className="text-pro">Pro</span>
         <span className="text-lex">Lex</span>
+        <span className="text-corp">Corp</span>
       </span>
 
       <style jsx>{`
         /* --- LOGO COLOR LOGIC --- */
-        
-        /* Light Mode: Navy Icon, Navy Pro, Bronze Lex */
-        .prolex-logo { color: #001F3F; } 
-        .text-pro { color: #001F3F; }    
-        .text-lex { color: #C5A059; }    
 
-        /* Dark Mode: Bronze Icon, White Pro, Bronze Lex */
-        :global([data-theme="dark"]) .prolex-logo { color: #C5A059; } 
-        :global([data-theme="dark"]) .text-pro { color: #FFFFFF; }    
-        :global([data-theme="dark"]) .text-lex { color: #C5A059; }    
-        
+        /* Light Mode: Navy Icon, Bronze Lex, Navy Corp */
+        .lexcorp-logo { color: #001F3F; }
+        .text-lex { color: #C5A059; }
+        .text-corp { color: #001F3F; }
+
+        /* Dark Mode: Bronze Icon, Bronze Lex, White Corp */
+        :global([data-theme="dark"]) .lexcorp-logo { color: #C5A059; }
+        :global([data-theme="dark"]) .text-lex { color: #C5A059; }
+        :global([data-theme="dark"]) .text-corp { color: #FFFFFF; }
+
         /* Footer Override (Always Dark Theme style) */
-        :global(.footer-logo-container) .prolex-logo { color: #C5A059 !important; }
-        :global(.footer-logo-container) .text-pro { color: #FFFFFF !important; }
+        :global(.footer-logo-container) .lexcorp-logo { color: #C5A059 !important; }
+        :global(.footer-logo-container) .text-corp { color: #FFFFFF !important; }
       `}</style>
     </div>
   );

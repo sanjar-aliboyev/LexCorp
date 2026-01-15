@@ -13,11 +13,11 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | ProLex',
-    default: 'ProLex - Professional Legal Services in Uzbekistan',
+    template: '%s | LexCorp',
+    default: 'LexCorp - Professional Legal Services in Uzbekistan',
   },
   description: 'Expert legal consultation for corporate, civil, and economic law.',
-  metadataBase: new URL('https://prolex.uz'),
+  metadataBase: new URL('https://lexcorp.uz'),
 };
 
 // Script to prevent flash of wrong theme on page load
@@ -52,17 +52,17 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
-              "name": "ProLex",
-              "url": "https://prolex.uz",
-              "logo": "https://prolex.uz/Logo%20dark.png",
+              "name": "LexCorp",
+              "url": "https://lexcorp.uz",
+              "logo": "https://lexcorp.uz/Logo%20dark.png",
               "contactPoint": {
                 "@type": "ContactPoint",
                 "telephone": "+998 71 200 00 00",
                 "contactType": "customer service"
               },
               "sameAs": [
-                "https://www.facebook.com/prolex",
-                "https://www.linkedin.com/company/prolex"
+                "https://www.facebook.com/lexcorp",
+                "https://www.linkedin.com/company/lexcorp"
               ]
             })
           }}

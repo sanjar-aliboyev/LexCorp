@@ -23,7 +23,7 @@ export const blogPosts: BlogPost[] = [
     slug: "tadbirkorlik-subyektlarini-tekshirishdagi-yangi-tartiblar",
     image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80&w=800",
     date: "2025-12-24",
-    author: "ProLex Team", // Placeholder author
+    author: "LexCorp Team", // Placeholder author
     content: {
       UZ: {
         category: "Iqtisodiy ishlar",
@@ -91,7 +91,7 @@ export const blogPosts: BlogPost[] = [
     slug: "jinoyat-ishlarida-advokat-ishtirokining-ahamiyati",
     image: "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&q=80&w=800",
     date: "2025-12-22",
-    author: "ProLex Team",
+    author: "LexCorp Team",
     content: {
       UZ: {
         category: "Jinoyat ishlari",
@@ -159,7 +159,7 @@ export const blogPosts: BlogPost[] = [
     slug: "mchj-tassischilari-ortasidagi-nizolarni-hal-qilish",
     image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=800",
     date: "2025-12-20",
-    author: "ProLex Team",
+    author: "LexCorp Team",
     content: {
       UZ: {
         category: "Korporativ huquq",
@@ -227,7 +227,7 @@ export const blogPosts: BlogPost[] = [
     slug: "qqs-tolovchilari-uchun-2025-yilgi-ozgarishlar",
     image: "https://images.unsplash.com/photo-1554224155-9727b5394036?auto=format&fit=crop&q=80&w=800",
     date: "2025-12-18",
-    author: "ProLex Team",
+    author: "LexCorp Team",
     content: {
       UZ: {
         category: "Soliq masalalari",
@@ -295,7 +295,7 @@ export const blogPosts: BlogPost[] = [
     slug: "xodimni-ishdan-boshatishda-eng-kop-yol-qoyiladigan-xatolar",
     image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&q=80&w=800",
     date: "2025-12-15",
-    author: "ProLex Team",
+    author: "LexCorp Team",
     content: {
       UZ: {
         category: "Mehnat huquqi",
@@ -363,7 +363,7 @@ export const blogPosts: BlogPost[] = [
     slug: "it-park-rezidentlari-uchun-soliq-imtiyozlari",
     image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800",
     date: "2025-12-10",
-    author: "ProLex Team",
+    author: "LexCorp Team",
     content: {
       UZ: {
         category: "IT va Internet huquqi",

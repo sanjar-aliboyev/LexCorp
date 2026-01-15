@@ -13,7 +13,7 @@ export const translations = {
       cta: "Bog'lanish"
     },
     hero: {
-      badge: "ProLex Yuridik Firmasi",
+      badge: "LexCorp Yuridik Firmasi",
       title: "Biznesingiz va Huquqlaringiz Uchun",
       titleHighlight: "Professional Himoya",
       desc: "Fuqarolik, iqtisodiy va korporativ nizolarda ishonchli yuridik hamkor. Bizning maqsadimiz — sizning manfaatlaringizni himoya qilish.",
@@ -57,7 +57,7 @@ export const translations = {
     // --- PAGES ---
     servicesPage: {
       title: "Yuridik Xizmatlar",
-      desc: "ProLex fuqarolik, iqtisodiy, korporativ va biznes bilan bog'liq jinoiy ishlarda jismoniy va yuridik shaxslar uchun professional yuridik xizmatlar ko'rsatadi. Bizning yondashuvimiz amaliy, strategik va mijozlarimizning manfaatlarini, aktivlarini va biznesining uzluksizligini himoya qilishga qaratilgan.",
+      desc: "LexCorp fuqarolik, iqtisodiy, korporativ va biznes bilan bog'liq jinoiy ishlarda jismoniy va yuridik shaxslar uchun professional yuridik xizmatlar ko'rsatadi. Bizning yondashuvimiz amaliy, strategik va mijozlarimizning manfaatlarini, aktivlarini va biznesining uzluksizligini himoya qilishga qaratilgan.",
       btnBookCall: "Qo'ng'iroqqa yozilish",
       btnWriteUs: "Bizga yozing",
       
@@ -191,7 +191,7 @@ export const translations = {
         { id: 6, description: "Transmilliy neft-gaz korporatsiyasi." }
       ],
       formTitle: "Xizmat Olish",
-      formDesc: "ProLex mutaxassislari sizning holatingiz uchun individual yechim berishga tayyor.",
+      formDesc: "LexCorp mutaxassislari sizning holatingiz uchun individual yechim berishga tayyor.",
       formSuccess: "Murojaatingiz muvaffaqiyatli yuborildi!",
       formError: "Xatolik yuz berdi. Iltimos, qayta urinib ko'ring."
     },
@@ -206,7 +206,7 @@ export const translations = {
           role: "Boshqaruvchi Hamkor",
           specialization: "Korporativ Huquq & M&A",
           image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=800",
-          email: "a.akhmedov@prolex.uz",
+          email: "a.akhmedov@lexcorp.uz",
           education: "LL.M, Garvard Huquq Maktabi",
           experience: "15+"
         },
@@ -216,7 +216,7 @@ export const translations = {
           role: "Katta Yurist",
           specialization: "Fuqarolik Nizolari & Oila Huquqi",
           image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=800",
-          email: "m.sharipova@prolex.uz",
+          email: "m.sharipova@lexcorp.uz",
           education: "LL.M, Vestminster Xalqaro Universiteti",
           experience: "10+"
         },
@@ -226,7 +226,7 @@ export const translations = {
           role: "Hamkor",
           specialization: "Iqtisodiy Jinoyatlar Himoyasi",
           image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=800",
-          email: "d.kurbanov@prolex.uz",
+          email: "d.kurbanov@lexcorp.uz",
           education: "PhD, Toshkent Davlat Yuridik Universiteti",
           experience: "12+"
         },
@@ -236,7 +236,7 @@ export const translations = {
           role: "Yurist",
           specialization: "Intellektual Mulk & IT",
           image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=800",
-          email: "e.tsoy@prolex.uz",
+          email: "e.tsoy@lexcorp.uz",
           education: "LL.B, JIDU",
           experience: "6+"
         },
@@ -246,7 +246,7 @@ export const translations = {
           role: "Soliq Maslahatchisi",
           specialization: "Soliq Nizolari & Moliyaviy Tahlil",
           image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=800",
-          email: "j.bektemirov@prolex.uz",
+          email: "j.bektemirov@lexcorp.uz",
           education: "MBA, Moliya",
           experience: "8+"
         },
@@ -256,7 +256,7 @@ export const translations = {
           role: "Kichik Yurist",
           specialization: "Shartnoma Huquqi",
           image: "https://images.unsplash.com/photo-1598550874175-4d7112ee7f38?auto=format&fit=crop&q=80&w=800",
-          email: "l.karimova@prolex.uz",
+          email: "l.karimova@lexcorp.uz",
           education: "LL.B, Toshkent Davlat Yuridik Universiteti",
           experience: "3+"
         }
@@ -264,7 +264,7 @@ export const translations = {
     },
     blogPage: {
       heroTitle: "Blog va Yangiliklar",
-      heroDesc: "O'zbekiston qonunchiligidagi so'nggi o'zgarishlar va ProLex ekspertlarining tahliliy maqolalari.",
+      heroDesc: "O'zbekiston qonunchiligidagi so'nggi o'zgarishlar va LexCorp ekspertlarining tahliliy maqolalari.",
       searchPlaceholder: "Maqola izlash...",
       readMore: "Batafsil o'qish",
       noResults: "Hech narsa topilmadi.",
@@ -323,7 +323,7 @@ export const translations = {
       cta: "Связаться"
     },
     hero: {
-      badge: "Юридическая фирма ProLex",
+      badge: "Юридическая фирма LexCorp",
       title: "Профессиональная Защита",
       titleHighlight: "Для Вашего Бизнеса",
       desc: "Надежный юридический партнер в гражданских, экономических и корпоративных спорах. Наша цель — защита ваших интересов.",
@@ -367,7 +367,7 @@ export const translations = {
     // --- PAGES ---
     servicesPage: {
       title: "Юридические Услуги",
-      desc: "ProLex предоставляет профессиональные юридические услуги для физических и юридических лиц по гражданским, экономическим, корпоративным и связанным с бизнесом уголовным делам. Наш подход практичен, стратегичен и направлен на защиту интересов, активов и непрерывности бизнеса клиентов.",
+      desc: "LexCorp предоставляет профессиональные юридические услуги для физических и юридических лиц по гражданским, экономическим, корпоративным и связанным с бизнесом уголовным делам. Наш подход практичен, стратегичен и направлен на защиту интересов, активов и непрерывности бизнеса клиентов.",
       btnBookCall: "Записаться на звонок",
       btnWriteUs: "Написать нам",
 
@@ -501,7 +501,7 @@ export const translations = {
         { id: 6, description: "Транснациональная нефтегазовая корпорация." }
       ],
       formTitle: "Получить услугу",
-      formDesc: "Специалисты ProLex готовы предложить индивидуальное решение для вашего дела.",
+      formDesc: "Специалисты LexCorp готовы предложить индивидуальное решение для вашего дела.",
       formSuccess: "Ваш запрос успешно отправлен!",
       formError: "Произошла ошибка. Пожалуйста, попробуйте еще раз."
     },
@@ -516,7 +516,7 @@ export const translations = {
           role: "Управляющий Партнер",
           specialization: "Корпоративное право и M&A",
           image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=800",
-          email: "a.akhmedov@prolex.uz",
+          email: "a.akhmedov@lexcorp.uz",
           education: "LL.M, Гарвардская школа права",
           experience: "15+"
         },
@@ -526,7 +526,7 @@ export const translations = {
           role: "Старший Юрист",
           specialization: "Гражданские споры и Семейное право",
           image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=800",
-          email: "m.sharipova@prolex.uz",
+          email: "m.sharipova@lexcorp.uz",
           education: "LL.M, Международный Вестминстерский Университет",
           experience: "10+"
         },
@@ -536,7 +536,7 @@ export const translations = {
           role: "Партнер",
           specialization: "Защита по экономическим преступлениям",
           image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=800",
-          email: "d.kurbanov@prolex.uz",
+          email: "d.kurbanov@lexcorp.uz",
           education: "PhD, Ташкентский государственный юридический университет",
           experience: "12+"
         },
@@ -546,7 +546,7 @@ export const translations = {
           role: "Юрист",
           specialization: "Интеллектуальная собственность и IT",
           image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=800",
-          email: "e.tsoy@prolex.uz",
+          email: "e.tsoy@lexcorp.uz",
           education: "LL.B, УМЭД",
           experience: "6+"
         },
@@ -556,7 +556,7 @@ export const translations = {
           role: "Налоговый Консультант",
           specialization: "Налоговые споры и Финансовый анализ",
           image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=800",
-          email: "j.bektemirov@prolex.uz",
+          email: "j.bektemirov@lexcorp.uz",
           education: "MBA, Финансы",
           experience: "8+"
         },
@@ -566,7 +566,7 @@ export const translations = {
           role: "Младший Юрист",
           specialization: "Договорное право",
           image: "https://images.unsplash.com/photo-1598550874175-4d7112ee7f38?auto=format&fit=crop&q=80&w=800",
-          email: "l.karimova@prolex.uz",
+          email: "l.karimova@lexcorp.uz",
           education: "LL.B, Ташкентский государственный юридический университет",
           experience: "3+"
         }
@@ -574,7 +574,7 @@ export const translations = {
     },
     blogPage: {
       heroTitle: "Блог и Новости",
-      heroDesc: "Последние изменения в законодательстве Узбекистана и аналитические статьи экспертов ProLex.",
+      heroDesc: "Последние изменения в законодательстве Узбекистана и аналитические статьи экспертов LexCorp.",
       searchPlaceholder: "Поиск статьи...",
       readMore: "Читать далее",
       noResults: "Ничего не найдено.",
@@ -633,7 +633,7 @@ export const translations = {
       cta: "Get in Touch"
     },
     hero: {
-      badge: "ProLex Law Firm",
+      badge: "LexCorp Law Firm",
       title: "Professional Protection",
       titleHighlight: "For Your Business",
       desc: "A reliable legal partner in civil, economic, and corporate disputes. Our goal is to protect your interests and ensure business continuity.",
@@ -677,7 +677,7 @@ export const translations = {
     // --- PAGES ---
     servicesPage: {
       title: "Legal Services",
-      desc: "ProLex provides professional legal services for individuals and businesses in civil, economic, corporate, and business-related criminal matters. Our approach is practical, strategic, and focused on protecting client interests, assets, and business continuity.",
+      desc: "LexCorp provides professional legal services for individuals and businesses in civil, economic, corporate, and business-related criminal matters. Our approach is practical, strategic, and focused on protecting client interests, assets, and business continuity.",
       btnBookCall: "Book a Call",
       btnWriteUs: "Write Us",
 
@@ -811,7 +811,7 @@ export const translations = {
         { id: 6, description: "Transnational oil and gas corporation." }
       ],
       formTitle: "Get Service",
-      formDesc: "ProLex specialists are ready to offer an individual solution for your case.",
+      formDesc: "LexCorp specialists are ready to offer an individual solution for your case.",
       formSuccess: "Your request has been sent successfully!",
       formError: "An error occurred. Please try again."
     },
@@ -826,7 +826,7 @@ export const translations = {
           role: "Managing Partner",
           specialization: "Corporate Law & M&A",
           image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=800",
-          email: "a.akhmedov@prolex.uz",
+          email: "a.akhmedov@lexcorp.uz",
           education: "LL.M, Harvard Law School",
           experience: "15+"
         },
@@ -836,7 +836,7 @@ export const translations = {
           role: "Senior Associate",
           specialization: "Civil Litigation & Family Law",
           image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=800",
-          email: "m.sharipova@prolex.uz",
+          email: "m.sharipova@lexcorp.uz",
           education: "LL.M, Westminster International University",
           experience: "10+"
         },
@@ -846,7 +846,7 @@ export const translations = {
           role: "Partner",
           specialization: "White-Collar Crime Defense",
           image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=800",
-          email: "d.kurbanov@prolex.uz",
+          email: "d.kurbanov@lexcorp.uz",
           education: "PhD, Tashkent State University of Law",
           experience: "12+"
         },
@@ -856,7 +856,7 @@ export const translations = {
           role: "Associate",
           specialization: "Intellectual Property & IT",
           image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=800",
-          email: "e.tsoy@prolex.uz",
+          email: "e.tsoy@lexcorp.uz",
           education: "LL.B, UWED",
           experience: "6+"
         },
@@ -866,7 +866,7 @@ export const translations = {
           role: "Tax Consultant",
           specialization: "Tax Disputes & Financial Analysis",
           image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=800",
-          email: "j.bektemirov@prolex.uz",
+          email: "j.bektemirov@lexcorp.uz",
           education: "MBA, Finance",
           experience: "8+"
         },
@@ -876,7 +876,7 @@ export const translations = {
           role: "Junior Associate",
           specialization: "Contract Law",
           image: "https://images.unsplash.com/photo-1598550874175-4d7112ee7f38?auto=format&fit=crop&q=80&w=800",
-          email: "l.karimova@prolex.uz",
+          email: "l.karimova@lexcorp.uz",
           education: "LL.B, Tashkent State University of Law",
           experience: "3+"
         }
@@ -884,7 +884,7 @@ export const translations = {
     },
     blogPage: {
       heroTitle: "Blog & News",
-      heroDesc: "Latest changes in Uzbekistan legislation and analytical articles from ProLex experts.",
+      heroDesc: "Latest changes in Uzbekistan legislation and analytical articles from LexCorp experts.",
       searchPlaceholder: "Search articles...",
       readMore: "Read More",
       noResults: "No results found.",

@@ -1,8 +1,6 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
 import { Search, Calendar, ArrowRight, Send, PlayCircle } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { client } from '../sanity/client';
@@ -164,7 +162,6 @@ export default function BlogPage() {
 
   return (
     <main style={{ backgroundColor: 'var(--bg-body)', minHeight: '100vh' }}>
-      <Header />
 
       {/* HERO */}
       <section style={{ padding: '160px 5% 60px', backgroundColor: '#001F3F', color: '#fff', textAlign: 'center' }}>

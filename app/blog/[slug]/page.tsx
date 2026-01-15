@@ -27,8 +27,8 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
   const primaryContent = post.content?.UZ || post.content?.EN || post.content?.RU;
 
   return {
-    title: primaryContent?.title || 'ProLex Blog',
-    description: primaryContent?.excerpt || 'Legal insights from ProLex.',
+    title: primaryContent?.title || 'LexCorp Blog',
+    description: primaryContent?.excerpt || 'Legal insights from LexCorp.',
     openGraph: {
         images: post.image ? [post.image] : [],
     }
