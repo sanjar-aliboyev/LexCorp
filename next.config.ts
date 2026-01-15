@@ -12,10 +12,7 @@ const nextConfig: NextConfig = {
     ],
   },
 
-  /* 2. Add the "Force Build" settings to ignore strict errors */
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
+  /* 2. Ignore TypeScript errors during builds */
   typescript: {
     ignoreBuildErrors: true,
   },

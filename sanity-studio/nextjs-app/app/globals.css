@@ -1,0 +1,91 @@
+:root {
+  /* COLORS (From Section 3.1 of Plan) */
+  --bg-body: #ffffff;
+  --bg-surface: #f4f6f9; /* Economic Silver */
+  --bg-card: #ffffff;
+
+  --text-main: #001F3F; /* Navy Blue for text */
+  --text-secondary: #4a5568;
+
+  --primary-color: #001F3F; /* LexCorp Navy */
+  --primary-hover: #003366;
+
+  --accent-color: #C5A059; /* Resolution Gold */
+
+  --border-color: #e2e8f0;
+  --shadow: 0 4px 20px rgba(0, 31, 63, 0.08); /* Navy tinted shadow */
+
+  --logo-filter: none;
+}
+
+[data-theme="dark"] {
+  --bg-body: #0a1017;
+  --bg-surface: #111a26;
+  --bg-card: #1a2332;
+  --text-main: #ffffff;
+  --text-secondary: #a0aec0;
+  --primary-color: #3182ce;
+  --primary-hover: #63b3ed;
+  --border-color: #2d3748;
+  --shadow: 0 4px 20px rgba(0,0,0,0.4);
+  --logo-filter: brightness(0) invert(1);
+}
+
+/* GLOBAL RESET & TYPOGRAPHY */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background-color: var(--bg-body);
+  color: var(--text-main);
+  /* Use Inter for body text */
+  font-family: var(--font-inter), system-ui, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* HEADINGS (The "Civil" Voice) */
+h1, h2, h3, h4, h5, h6 {
+  /* Use Merriweather for headings */
+  font-family: var(--font-merriweather), serif;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.25;
+}
+
+a { text-decoration: none; color: inherit; transition: color 0.2s; }
+ul { list-style: none; }
+button { font-family: var(--font-inter), sans-serif; }
+
+/* SPACING UTILITIES */
+section {
+  position: relative;
+  overflow: hidden; /* Prevents horizontal scroll on mobile */
+}
+
+/* MOBILE RESPONSIVENESS FIXES */
+@media (max-width: 768px) {
+  /* Prevent text hitting the edges on phones */
+  section > div {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  /* Make headings smaller on mobile */
+  h1 { font-size: 2.2rem !important; }
+  h2 { font-size: 1.8rem !important; }
+
+  /* Stack grid items with spacing */
+  .grid-container, .services-footer {
+    gap: 30px !important;
+  }
+}
+
+/* LOADING ANIMATIONS */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
