@@ -106,6 +106,35 @@ export default function RootLayout({
             })
           }}
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "LegalService",
+              "name": "LexCorp",
+              "image": "https://lexcorp.uz/og-image.jpg",
+              "description": "Intellectual Property protection and market analysis for global retail giants in Central Asia.",
+              "url": "https://lexcorp.uz",
+              "telephone": "+998943318811",
+              "email": "sanjar@aliboyev.com",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "203rd Office, 107th house, Mustakillik street, Mirzo Ulugbek district",
+                "addressLocality": "Tashkent",
+                "postalCode": "100170",
+                "addressCountry": "UZ"
+              },
+              "priceRange": "$",
+              "openingHoursSpecification": {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                "opens": "09:00",
+                "closes": "18:00"
+              }
+            })
+          }}
+        />
       </head>
       <body className={inter.className} suppressHydrationWarning>
         <ThemeProvider>
