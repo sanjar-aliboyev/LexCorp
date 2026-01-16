@@ -91,6 +91,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Organization",
               "name": "LexCorp",
+              "legalName": "LexCorp LLC",
               "url": "https://lexcorp.uz",
               "logo": "https://lexcorp.uz/Logo%20dark.png",
               "contactPoint": {
@@ -101,7 +102,9 @@ export default function RootLayout({
               },
               "sameAs": [
                 "https://www.facebook.com/lexcorp",
-                "https://www.linkedin.com/company/lexcorp"
+                "https://www.linkedin.com/company/lexcorp",
+                "https://maps.app.goo.gl/s6CCCTUUWMGkgr7s8",
+                "https://yandex.uz/maps/-/CLh6BXI-"
               ]
             })
           }}
@@ -113,6 +116,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "LegalService",
               "name": "LexCorp",
+              "legalName": "LexCorp LLC",
               "image": "https://lexcorp.uz/og-image.jpg",
               "description": "Intellectual Property protection and market analysis for global retail giants in Central Asia.",
               "url": "https://lexcorp.uz",
@@ -131,7 +135,12 @@ export default function RootLayout({
                 "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
                 "opens": "09:00",
                 "closes": "18:00"
-              }
+              },
+              "hasMap": "https://maps.app.goo.gl/s6CCCTUUWMGkgr7s8",
+              "sameAs": [
+                "https://maps.app.goo.gl/s6CCCTUUWMGkgr7s8",
+                "https://yandex.uz/maps/-/CLh6BXI-"
+              ]
             })
           }}
         />
