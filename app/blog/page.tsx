@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Search, Calendar, ArrowRight, Send, PlayCircle } from 'lucide-react';
+import { Search, Calendar, ArrowRight, Send, PlayCircle, Loader2, CheckCircle } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { client } from '../sanity/client';
 import Link from 'next/link';
@@ -115,6 +115,10 @@ export default function BlogPage() {
   const [activeCategory, setActiveCategory] = useState(lang === 'UZ' ? 'Barcha' : (lang === 'RU' ? 'Все' : 'All'));
   const [searchTerm, setSearchTerm] = useState<string>('');
 
+  // Contact Form State
+  const [formData, setFormData] = useState({ name: '', phone: '', message: '' });
+  const [formStatus, setFormStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
   // Load All Data
   useEffect(() => {
     getData()
@@ -155,9 +159,37 @@ export default function BlogPage() {
   const currentButtons = FILTER_BUTTONS[lang as keyof typeof FILTER_BUTTONS] || FILTER_BUTTONS['UZ'];
 
   // Form Logic
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert(lang === 'UZ' ? "Xabar yuborildi!" : "Message sent!");
+    setFormStatus('loading');
+
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          phone: formData.phone,
+          message: formData.message,
+          email: '',
+          source: 'Blog Main Page',
+        }),
+      });
+
+      if (response.ok) {
+        setFormStatus('success');
+        setFormData({ name: '', phone: '', message: '' });
+      } else {
+        setFormStatus('error');
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setFormStatus('error');
+    }
   };
 
   return (
@@ -300,14 +332,52 @@ export default function BlogPage() {
             {t.blogPage.formTitle}
           </h2>
           <div className="animated-form-wrapper">
-            <form className="inner-form" onSubmit={handleFormSubmit}>
-              <div className="form-grid">
-                <div><label>{t.blogPage.labelName}</label><input type="text" required className="blog-input" /></div>
-                <div><label>{t.blogPage.labelPhone}</label><input type="tel" required className="blog-input" /></div>
+            {formStatus === 'success' ? (
+              <div className="inner-form" style={{ textAlign: 'center', padding: '60px 40px' }}>
+                <CheckCircle size={64} color="#16a34a" />
+                <h3 style={{ marginTop: '20px', color: 'var(--text-main)', fontFamily: 'var(--font-merriweather)' }}>
+                  {lang === 'UZ' ? "Xabar yuborildi!" : lang === 'RU' ? "Сообщение отправлено!" : "Message Sent!"}
+                </h3>
+                <p style={{ color: 'var(--text-secondary)', marginBottom: '30px' }}>
+                  {lang === 'UZ' ? "Tez orada siz bilan bog'lanamiz." : lang === 'RU' ? "Мы свяжемся с вами в ближайшее время." : "We'll get back to you soon."}
+                </p>
+                <button
+                  onClick={() => setFormStatus('idle')}
+                  style={{ background: 'transparent', color: '#C5A059', border: '1px solid #C5A059', padding: '10px 20px', borderRadius: '4px', cursor: 'pointer' }}
+                >
+                  {lang === 'UZ' ? "Yana yuborish" : lang === 'RU' ? "Отправить ещё" : "Send Another"}
+                </button>
               </div>
-              <div style={{ marginTop: '20px' }}><label>{t.blogPage.labelMsg}</label><textarea rows={4} className="blog-input"></textarea></div>
-              <button type="submit" className="submit-btn">{t.blogPage.btnSubmit} <Send size={18} /></button>
-            </form>
+            ) : (
+              <form className="inner-form" onSubmit={handleFormSubmit}>
+                <div className="form-grid">
+                  <div>
+                    <label>{t.blogPage.labelName}</label>
+                    <input type="text" name="name" required className="blog-input" value={formData.name} onChange={handleInputChange} />
+                  </div>
+                  <div>
+                    <label>{t.blogPage.labelPhone}</label>
+                    <input type="tel" name="phone" required className="blog-input" value={formData.phone} onChange={handleInputChange} />
+                  </div>
+                </div>
+                <div style={{ marginTop: '20px' }}>
+                  <label>{t.blogPage.labelMsg}</label>
+                  <textarea name="message" rows={4} className="blog-input" value={formData.message} onChange={handleInputChange}></textarea>
+                </div>
+                <button type="submit" className="submit-btn" disabled={formStatus === 'loading'}>
+                  {formStatus === 'loading' ? (
+                    <><Loader2 size={18} className="spin" /> {lang === 'UZ' ? "Yuborilmoqda..." : lang === 'RU' ? "Отправка..." : "Sending..."}</>
+                  ) : (
+                    <>{t.blogPage.btnSubmit} <Send size={18} /></>
+                  )}
+                </button>
+                {formStatus === 'error' && (
+                  <p style={{ color: '#ef4444', marginTop: '15px', textAlign: 'center' }}>
+                    {lang === 'UZ' ? "Xatolik yuz berdi. Qayta urinib ko'ring." : lang === 'RU' ? "Ошибка. Попробуйте еще раз." : "Error occurred. Please try again."}
+                  </p>
+                )}
+              </form>
+            )}
           </div>
         </div>
       </section>
@@ -340,8 +410,13 @@ export default function BlogPage() {
         .inner-form { background: var(--bg-card); border-radius: 12px; padding: 40px; text-align: left; }
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .blog-input { width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px; margin-top: 5px; background: var(--bg-surface); color: var(--text-main); }
-        .submit-btn { width: 100%; marginTop: 30px; background: #001F3F; color: #fff; padding: 15px; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; }
-        
+        .submit-btn { width: 100%; margin-top: 30px; background: #001F3F; color: #fff; padding: 15px; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; transition: background 0.2s; }
+        .submit-btn:hover { background: #C5A059; color: #001F3F; }
+        .submit-btn:disabled { opacity: 0.7; cursor: not-allowed; }
+
+        :global(.spin) { animation: spin 1s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
         @media (max-width: 768px) { .form-grid { grid-template-columns: 1fr; } }
       `}</style>
     </main>
