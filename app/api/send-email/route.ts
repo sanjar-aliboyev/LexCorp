@@ -40,6 +40,27 @@ export async function POST(req: Request) {
     // 3. Send Email
     await transporter.sendMail(mailOptions);
 
+    // 4. Send Telegram Notification
+    const telegramText = `
+🔔 *New Lead from LexCorp.uz*
+📍 *Source:* ${source}
+👤 *Name:* ${name}
+📞 *Phone:* ${phone}
+${email ? `📧 *Email:* ${email}` : ''}
+${interest ? `⚖️ *Service:* ${interest}` : ''}
+💬 *Message:* ${message || 'No message provided.'}
+    `.trim();
+
+    await fetch(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: process.env.TELEGRAM_CHAT_ID,
+        text: telegramText,
+        parse_mode: 'Markdown',
+      }),
+    });
+
     return NextResponse.json({ message: "Email Sent Successfully" }, { status: 200 });
   } catch (error) {
     console.error("Email Error:", error);
