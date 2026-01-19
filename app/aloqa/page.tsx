@@ -56,8 +56,21 @@ export default function ContactPage() {
     setFormStatus('submitting');
 
     try {
-      // Simulation of API call
-      await new Promise(resolve => setTimeout(resolve, 1500)); 
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          phone: formData.phone,
+          email: '', // No email field on this form
+          interest: formData.interest,
+          message: formData.message,
+          source: 'Aloqa Page',
+        }),
+      });
+
+      if (!response.ok) throw new Error('Failed to send');
+
       setFormStatus('success');
       setFormData({ name: '', phone: '', interest: '', message: '' });
     } catch (error) {

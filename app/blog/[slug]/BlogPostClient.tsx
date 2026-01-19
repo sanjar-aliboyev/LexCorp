@@ -1,8 +1,8 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, Calendar, User, Share2, Send, Linkedin, Facebook, Twitter, Link as LinkIcon } from 'lucide-react';
+import { ArrowLeft, Calendar, User, Share2, Send, Linkedin, Facebook, Twitter, Link as LinkIcon, CheckCircle } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
 import { PortableText } from '@portabletext/react';
 
@@ -35,6 +35,8 @@ const UI_TEXT = {
 export default function BlogPostClient({ post }: BlogPostClientProps) {
   const router = useRouter();
   const { lang } = useLanguage();
+  const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
+  const [formData, setFormData] = useState({ name: '', phone: '', message: '' });
 
   // 1. Language Selection Logic
   const content = post?.content?.[lang] || post?.content?.['UZ'];
@@ -50,9 +52,35 @@ export default function BlogPostClient({ post }: BlogPostClientProps) {
     );
   }
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert(lang === 'UZ' ? "Xabar yuborildi!" : "Message sent!");
+    setFormStatus('submitting');
+
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          phone: formData.phone,
+          email: '',
+          message: formData.message,
+          source: `Blog: ${content?.title || 'Unknown'}`,
+        }),
+      });
+
+      if (!response.ok) throw new Error('Failed to send');
+
+      setFormStatus('success');
+      setFormData({ name: '', phone: '', message: '' });
+    } catch (error) {
+      alert(lang === 'UZ' ? "Xatolik yuz berdi. Qaytadan urinib ko'ring." : "An error occurred. Please try again.");
+      setFormStatus('idle');
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   // Share Handlers
@@ -137,25 +165,40 @@ export default function BlogPostClient({ post }: BlogPostClientProps) {
             {ui.formDesc}
           </p>
 
-          <form onSubmit={handleFormSubmit} style={{ background: 'var(--bg-card)', padding: '40px', borderRadius: '12px', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow)' }}>
-            <div className="form-grid">
-              <div style={{ textAlign: 'left' }}>
-                <label className="form-label">{ui.name}</label>
-                <input type="text" required className="form-input" />
-              </div>
-              <div style={{ textAlign: 'left' }}>
-                <label className="form-label">{ui.phone}</label>
-                <input type="tel" required className="form-input" />
-              </div>
+          {formStatus === 'success' ? (
+            <div style={{ background: 'var(--bg-card)', padding: '60px 40px', borderRadius: '12px', border: '1px solid var(--border-color)', textAlign: 'center' }}>
+              <CheckCircle size={64} color="#16a34a" />
+              <h3 style={{ marginTop: '20px', color: 'var(--text-main)' }}>
+                {lang === 'UZ' ? "Xabar yuborildi!" : lang === 'RU' ? "Сообщение отправлено!" : "Message Sent!"}
+              </h3>
+              <p style={{ color: 'var(--text-secondary)', marginBottom: '30px' }}>
+                {lang === 'UZ' ? "Tez orada siz bilan bog'lanamiz." : lang === 'RU' ? "Мы свяжемся с вами в ближайшее время." : "We'll get back to you soon."}
+              </p>
+              <button onClick={() => setFormStatus('idle')} style={{ background: 'transparent', color: '#C5A059', border: '1px solid #C5A059', padding: '10px 20px', borderRadius: '4px', cursor: 'pointer' }}>
+                {lang === 'UZ' ? "Yana yuborish" : lang === 'RU' ? "Отправить ещё" : "Send Another"}
+              </button>
             </div>
-            <div style={{ textAlign: 'left', marginBottom: '30px' }}>
-              <label className="form-label">{ui.msg}</label>
-              <textarea rows={4} className="form-input"></textarea>
-            </div>
-            <button type="submit" className="submit-btn">
-              {ui.btn} <Send size={18} />
-            </button>
-          </form>
+          ) : (
+            <form onSubmit={handleFormSubmit} style={{ background: 'var(--bg-card)', padding: '40px', borderRadius: '12px', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow)' }}>
+              <div className="form-grid">
+                <div style={{ textAlign: 'left' }}>
+                  <label className="form-label">{ui.name}</label>
+                  <input type="text" name="name" required className="form-input" value={formData.name} onChange={handleChange} />
+                </div>
+                <div style={{ textAlign: 'left' }}>
+                  <label className="form-label">{ui.phone}</label>
+                  <input type="tel" name="phone" required className="form-input" value={formData.phone} onChange={handleChange} />
+                </div>
+              </div>
+              <div style={{ textAlign: 'left', marginBottom: '30px' }}>
+                <label className="form-label">{ui.msg}</label>
+                <textarea name="message" rows={4} className="form-input" value={formData.message} onChange={handleChange}></textarea>
+              </div>
+              <button type="submit" className="submit-btn" disabled={formStatus === 'submitting'}>
+                {formStatus === 'submitting' ? '...' : <>{ui.btn} <Send size={18} /></>}
+              </button>
+            </form>
+          )}
         </div>
       </section>
 
